@@ -1,0 +1,153 @@
+1) 
+-las etiquetas son "dato:" y "main:"
+-las directivas son ".data", ".byte", ".text" y ".globl"
+-los comentarios son los que estan en una linea luego de un #, en este caso "inicializo una posicion de memoria a 3" y "debe ser global"
+
+2)
+.data 0x10000000
+A: .space 80
+B: .space 80
+
+3)
+.data 0x10001000
+palabra:   .space 32
+byte:      .space 8
+	   .align 4
+palabra4:  .space 32
+
+4)
+.data
+palabra:  .word 3
+byte:     .byte 0x10
+	  .align 4
+bytes:    .space 32
+byte2:    .byte 20
+
+5)
+
+a-
+.data
+frase: .ascii "Esto es un problema"
+
+b-
+.data
+frase: .byte 69,115,116,111,32,101,115,32,117,110,32,112,114,111,98,108,101,109,97
+
+c-
+.data
+frase: .word 0x4573746f,0x20657320,0x756e2070,0x726f626c,0x656d610a
+
+6)
+
+a-
+.data 0x10010000
+A: .word 1,2,3,4,5,6,7,8,9
+
+b-
+.data 0x10010000
+A: .word 1,4,7,2,5,8,3,6,9
+
+7)
+.data 0x10000000
+V: .word 10,20,25,500,3
+.text
+   lw $s0,V($0)
+   lw $s1,V+4($0)
+   lw $s2,V+8($0)
+   lw $s3,V+12($0)
+   lw $s4,V+16($0)
+
+8)
+.data 0x10010000
+V: .word
+.text
+   sw $s0,V($0)
+   sw $s1,V+4($0)
+   sw $s2,V+8($0)
+   sw $s3,V+12($0)
+   sw $s4,V+16($0)
+
+9)
+.data 0x10010000
+palabra: .word 0x10203040
+.text
+         lb $s0, palabra($0)
+	 lb $s1, palabra+1($0)
+	 lb $s2, palabra+2($0)
+	 lb $s3, palabra+3($0)
+	 sb $s3, palabra($0)
+	 sb $s2, palabra+1($0)
+	 sb $s1, palabra+2($0)
+	 sb $s0, palabra+3($0)
+
+10)
+.data
+palabra: .word 0x10203040
+.text
+	lh $s0, palabra($0)
+	lh $s1, palabra+2($0)
+	sh $s1, palabra($0)
+	sh $s0, palabra+2($0)
+
+11)
+.data 0x10010002
+bytes:   .byte 0x10, 0x20, 0x30, 0x40
+	 .align 8
+palabra: .space 32
+.text
+	lb $s0, bytes($0)
+	lb $s1, bytes+1($0)
+	lb $s2, bytes+2($0)
+	lb $s3, bytes+3($0)
+	sb $s0, palabra($0)
+	sb $s1, palabra+1($0)
+	sb $s2, palabra+2($0)
+	sb $s3, palabra+3($0)
+
+12)
+.data 0x10000000
+V: .byte 10, 20
+.text
+	lb $s0, V($0)
+	lb $s1, V+1($0)
+	add $s2, $s0, $s1
+	sb $s2, V+2($0)
+
+13)
+.data 0x10000000
+numero1:   .word 18
+numero2:   .word -1215
+	   .align 1
+cocientes: .space 64
+.text
+	lw $s0, numero1($0)
+	lw $s1, numero2($0)
+	div $s0, $s0, 5
+	div $s1, $s1, 5
+	div $s2, $s0, $s1
+	sw $s2, cocientes($0)
+
+14)
+.data 0x10000000
+entero: .word 0xabcd12bd
+.text
+	lw $s0, entero($0)
+	and $s0, $s0, 0x1BA
+	sw $s0, entero($0)
+
+15)
+.data 0x10000000
+entero: .word 0xff0f1235
+.text
+	lw $s0, entero($0)
+	and $s0, $s0, 0x1BA
+	sw $s0, entero($0)
+
+16)
+.data 0x10000000
+entero: .word 0x1237
+.text
+	lw $s0, entero($0)
+	sll $s0, $s0, 5
+
+https://github.com/MatiasMK/MARS-MIPS-2022 (link de github)
